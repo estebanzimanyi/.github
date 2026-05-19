@@ -66,7 +66,7 @@ Runnable example programs and notebooks live in [PyMEOS-Examples](https://github
 
 | Repository | Description |
 |---|---|
-| [MEOS-API](https://github.com/MobilityDB/MEOS-API) | Machine-readable description of the MEOS C-library API (an IDL JSON plus a shape-metadata catalog), generated from the MEOS headers via libclang. Consumed by the language bindings for code generation. |
+| [MEOS-API](https://github.com/MobilityDB/MEOS-API) | Machine-readable description of the MEOS C-library API (an IDL JSON plus a shape-metadata catalog), generated from the MEOS headers via libclang. Beyond binding code-generation, the enriched catalog is projected into service contracts: an OpenAPI 3.1 contract, a Model Context Protocol (MCP) tool manifest (so LLMs/agents can call the MEOS spatiotemporal algebra directly), and a contract-driven runtime HTTP server. |
 
 ### 🟧 Visualization and UI integrations
 
