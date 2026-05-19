@@ -24,7 +24,13 @@ The companion datasets and reproducible scripts live in [MobilityDataScienceBook
 
 ## Repository map
 
-<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/mobilitydb_ecosystem.svg" width="800" alt="MobilityDB Ecosystem" />
+<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/mobilitydb_ecosystem.svg" width="800" alt="MobilityDB Ecosystem — MEOS core; MobilityDB, MobilityDuck and MobilitySpark as peer SQL surfaces; MEOS-API as a side codegen catalog projected to OpenAPI/MCP/runtime; a teal portable-data interchange band (Arrow C Data Interface, Parquet / Temporal Data Lake) beneath MEOS; and a dashed, ghosted PLANNED Stream-layers box (MobilityNebula, MobilityKafka, MobilityFlink) as a future fourth peer" />
+
+The sections below follow the figure's boxes **bottom → top, left → right**.
+
+### 🔄 Portable data — the interchange band beneath MEOS
+
+This is the portable-data interchange band drawn beneath MEOS in the figure. MEOS exposes a zero-copy [Arrow C Data Interface](https://arrow.apache.org/docs/format/CDataInterface.html) and a Parquet / *TemporalParquet* on-disk form, so trajectories move between the engines and a **Temporal Data Lake** without re-encoding. It is the data-side complement of the *portable-computation* property of the SQL layers below. Both properties — and their reproducible companions — are catalogued in the mobility-platform interoperability index (in [MobilityDB](https://github.com/MobilityDB/MobilityDB), `doc/temporal-parquet/`).
 
 ### ⬛ Core C library
 
@@ -32,13 +38,33 @@ The companion datasets and reproducible scripts live in [MobilityDataScienceBook
 |---|---|
 | [MEOS](https://libmeos.org) | Mobility Engine, Open Source — the canonical C library underlying every other piece. |
 
-### 🟦 SQL layers (peers above MEOS)
+### 🟫 Tooling
 
 | Repository | Description |
 |---|---|
-| [MobilityDB](https://github.com/MobilityDB/MobilityDB) | PostgreSQL extension. The project's reference SQL surface. |
-| [MobilityDuck](https://github.com/MobilityDB/MobilityDuck) | DuckDB extension. Peer SQL layer for analytics and columnar workloads. |
-| [MobilitySpark](https://github.com/MobilityDB/MobilitySpark) | Apache Spark layer. Peer SQL surface for large-scale distributed analytics, exposing MEOS through Spark SQL. |
+| [MEOS-API](https://github.com/MobilityDB/MEOS-API) | Machine-readable description of the MEOS C-library API (an IDL JSON plus a shape-metadata catalog), generated from the MEOS headers via libclang. Beyond binding code-generation, the enriched catalog is projected into service contracts: an OpenAPI 3.1 contract, a Model Context Protocol (MCP) tool manifest (so LLMs/agents can call the MEOS spatiotemporal algebra directly), and a contract-driven runtime HTTP server. |
+
+### 🟦 SQL layers (peers above MEOS)
+
+Three SQL surfaces share the same MEOS-backed type system, function catalog, and BerlinMOD reference queries. Portable SQL means the same query text runs against any of the three. The portable named-function dialect and its rationale are described in the [edge-to-cloud SQL portability discussion (#861)](https://github.com/MobilityDB/MobilityDB/discussions/861).
+
+This is the platform's **portable computation** property — one query text, three engines. Its data-side complement, **portable data**, is the interchange band described in the *🔄 Portable data — the interchange band beneath MEOS* section above.
+
+| Repository | Description |
+|---|---|
+| [MobilityDB](https://github.com/MobilityDB/MobilityDB) | PostgreSQL extension — the project's reference SQL surface. |
+| [MobilityDuck](https://github.com/MobilityDB/MobilityDuck) | DuckDB extension — peer SQL layer for analytics / columnar workloads. |
+| [MobilitySpark](https://github.com/MobilityDB/MobilitySpark) | Apache Spark plugin — peer SQL layer for distributed and large-scale workloads, with MEOS-backed UDFs and DataFrame integration. |
+
+### 🌊 Stream layers (planned)
+
+**Planned — not yet built.** The same edge-to-cloud model is planned for the streaming side of the ecosystem, each tool in its canonical role: [MobilityNebula](https://github.com/MobilityDB/MobilityNebula) ([NebulaStream](https://nebula.stream/)) on the **edge**, [MobilityKafka](https://github.com/MobilityDB/MobilityKafka) ([Apache Kafka](https://kafka.apache.org/)) as the streaming **transport backbone** in between, and [MobilityFlink](https://github.com/MobilityDB/MobilityFlink) ([Apache Flink](https://flink.apache.org/)) for **stream processing in the cloud** — reproducing the SNCB benchmark from [*MobilityNebula* (EDBT 2026)](https://docs.mobilitydb.com/pub/MobilityNebula_EDBT_2026.pdf). It is drawn as a dashed, ghosted box — same format as the other peer boxes, second in the peers row of the figure above (dashed = not yet built).
+
+| Repository | Engine |
+|---|---|
+| [MobilityNebula](https://github.com/MobilityDB/MobilityNebula) | [NebulaStream](https://nebula.stream/) — edge |
+| [MobilityKafka](https://github.com/MobilityDB/MobilityKafka) | [Apache Kafka](https://kafka.apache.org/) — streaming transport backbone |
+| [MobilityFlink](https://github.com/MobilityDB/MobilityFlink) | [Apache Flink](https://flink.apache.org/) — cloud stream processing |
 
 ### 🟩 HTTP / API layer
 
@@ -53,44 +79,33 @@ Each binding follows its language community's naming convention.
 | Repository | Language |
 |---|---|
 | [PyMEOS](https://github.com/MobilityDB/PyMEOS) | Python |
-| [PyMEOS-CFFI](https://github.com/MobilityDB/PyMEOS-CFFI) | Python (low-level CFFI layer underlying PyMEOS) |
 | [JMEOS](https://github.com/MobilityDB/JMEOS) | Java / JVM |
 | [GoMEOS](https://github.com/MobilityDB/GoMEOS) | Go |
 | [meos-rs](https://github.com/MobilityDB/meos-rs) | Rust |
 | [MEOS.NET](https://github.com/MobilityDB/MEOS.NET) | .NET / C# |
 | [MEOS.js](https://github.com/MobilityDB/MEOS.js) | JavaScript / TypeScript |
 
-Runnable example programs and notebooks live in [PyMEOS-Examples](https://github.com/MobilityDB/PyMEOS-Examples) (Python) and [JMEOS-Examples](https://github.com/MobilityDB/JMEOS-Examples) (Java).
+### 🟨 Application platforms
 
-### 🟫 Tooling
-
-| Repository | Description |
+| Repository | Engine / framework |
 |---|---|
-| [MEOS-API](https://github.com/MobilityDB/MEOS-API) | Machine-readable description of the MEOS C-library API (an IDL JSON plus a shape-metadata catalog), generated from the MEOS headers via libclang. Consumed by the language bindings for code generation. |
+| [MobilityPandas](https://github.com/MobilityDB/MobilityPandas) | [MovingPandas](https://movingpandas.org/) backed by PyMEOS |
+| [MobilityOpenTripPlanner](https://github.com/MobilityDB/MobilityOpenTripPlanner) | [OpenTripPlanner](https://www.opentripplanner.org/) — multimodal trip planning |
+| [MobilityMapMatching](https://github.com/MobilityDB/MobilityMapMatching) | Map matching as a service |
+| [MobilityDB-PublicTransport](https://github.com/MobilityDB/MobilityDB-PublicTransport) | [GTFS](https://gtfs.org/) / [Netex](https://netex-cen.eu/) integration |
 
 ### 🟧 Visualization and UI integrations
 
 | Repository | Stack |
 |---|---|
 | [MobilityDeck](https://github.com/MobilityDB/MobilityDeck) | [deck.gl](https://deck.gl/) |
+| [MobilityFlink-Deck](https://github.com/MobilityDB/MobilityFlink-Deck) | [deck.gl](https://deck.gl/) on the planned Flink stream layer |
 | [MobilityOpenLayers](https://github.com/MobilityDB/MobilityOpenLayers) | [OpenLayers](https://openlayers.org/) |
 | [MobilityLeaflet](https://github.com/MobilityDB/MobilityLeaflet) | [Leaflet](https://leafletjs.com/) |
 | [MobilityQGIS](https://github.com/MobilityDB/MobilityQGIS) | [QGIS](https://qgis.org/) integration |
 | [MobilityGeoServer](https://github.com/MobilityDB/MobilityGeoServer) | [GeoServer](https://geoserver.org/) |
-| [move](https://github.com/MobilityDB/move) | QGIS plugin for visualizing MobilityDB query results |
-
-### 🟨 Application platforms
-
-| Repository | Engine / framework |
-|---|---|
-| [MobilityFlink](https://github.com/MobilityDB/MobilityFlink) | [Apache Flink](https://flink.apache.org/) — streaming |
-| [MobilityFlink-Deck](https://github.com/MobilityDB/MobilityFlink-Deck) | Flink + deck.gl integration |
-| [MobilityKafka](https://github.com/MobilityDB/MobilityKafka) | [Apache Kafka](https://kafka.apache.org/) — streaming |
-| [MobilityNebula](https://github.com/MobilityDB/MobilityNebula) | [NebulaStream](https://nebula.stream/) |
-| [MobilityPandas](https://github.com/MobilityDB/MobilityPandas) | [MovingPandas](https://movingpandas.org/) backed by PyMEOS |
-| [MobilityOpenTripPlanner](https://github.com/MobilityDB/MobilityOpenTripPlanner) | [OpenTripPlanner](https://www.opentripplanner.org/) — multimodal trip planning |
-| [MobilityMapMatching](https://github.com/MobilityDB/MobilityMapMatching) | Map matching as a service |
-| [MobilityDB-PublicTransport](https://github.com/MobilityDB/MobilityDB-PublicTransport) | [GTFS](https://gtfs.org/) / [Netex](https://netex-cen.eu/) integration |
+| [MOVE](https://github.com/MobilityDB/move) | QGIS plugin for visualizing MobilityDB query results |
+| [Franchise](https://github.com/MobilityDB/Franchise) | Notebook SQL client for exploring MobilityDB / MEOS-backed SQL |
 
 ### 🔵 Cloud and deployment
 
@@ -101,13 +116,20 @@ Runnable example programs and notebooks live in [PyMEOS-Examples](https://github
 | [MobilityDB-GCP](https://github.com/MobilityDB/MobilityDB-GCP) | Google Cloud Platform |
 | [MobilityDB-docker](https://github.com/MobilityDB/MobilityDB-docker) | Docker images |
 
+### 📦 Packaging / distribution
+
+| Repository | Description |
+|---|---|
+| [meos-feedstock](https://github.com/MobilityDB/meos-feedstock) | conda-forge feedstock for the MEOS C library. |
+| [pymeos-feedstock](https://github.com/MobilityDB/pymeos-feedstock) | conda-forge feedstock for PyMEOS. |
+| [pymeos-cffi-feedstock](https://github.com/MobilityDB/pymeos-cffi-feedstock) | conda-forge feedstock for PyMEOS-CFFI. |
+
 ### 🟤 Datasets and benchmarks
 
 | Repository | Description |
 |---|---|
-| [MobilityDB-BerlinMOD](https://github.com/MobilityDB/MobilityDB-BerlinMOD) | [BerlinMOD](https://secondo-database.github.io/BerlinMOD/BerlinMOD.html) data generator and benchmark, using [Open Street Map](https://www.openstreetmap.org/) data and [pgRouting](https://pgrouting.org/) (Brussels by default). |
-| [MobilityDB-BerlinMOD-Hanoi](https://github.com/MobilityDB/MobilityDB-BerlinMOD-Hanoi) | BerlinMOD generator instantiated with OSM data for Hanoi, Vietnam. |
-| [MobilityDB-Brussels](https://github.com/MobilityDB/MobilityDB-Brussels) | Brussels mobility dataset. |
+| [MobilityDB-BerlinMOD](https://github.com/MobilityDB/MobilityDB-BerlinMOD) | [BerlinMOD](https://secondo-database.github.io/BerlinMOD/BerlinMOD.html) data generator and benchmark, using [Open Street Map](https://www.openstreetmap.org/) data and [pgRouting](https://pgrouting.org/). Brussels by default; a Hanoi (Vietnam) instantiation lives in [MobilityDB-BerlinMOD-Hanoi](https://github.com/MobilityDB/MobilityDB-BerlinMOD-Hanoi). Also the cross-platform conformance suite for the portable SQL dialect — the same queries run on all three SQL surfaces and must return identical results. |
+| [MobilityDB-Brussels](https://github.com/MobilityDB/MobilityDB-Brussels) | Real Brussels public-transport dataset (STIB, TLC) — companion data, not a BerlinMOD instantiation. |
 | [MobilityDB-TPCDS](https://github.com/MobilityDB/MobilityDB-TPCDS) | TPC-DS benchmark adaptation. |
 
 ### 🟢 Education and workshops
@@ -116,6 +138,13 @@ Runnable example programs and notebooks live in [PyMEOS-Examples](https://github
 |---|---|
 | [MobilityDB-workshop](https://github.com/MobilityDB/MobilityDB-workshop) | Hands-on workshop materials. |
 | [MobilityDataScienceBook](https://github.com/MobilityDB/MobilityDataScienceBook) | Companion datasets and scripts for the textbook. |
+
+### 📖 Documentation and websites
+
+| Repository | Description |
+|---|---|
+| [libmeos-website](https://github.com/MobilityDB/libmeos-website) | Source of [libmeos.org](https://libmeos.org) — the project's public front door (concepts, type system, tutorials, bindings). |
+| [mobilitydb-website](https://github.com/MobilityDB/mobilitydb-website) | Source of the MobilityDB project website. |
 
 ### 🟥 Research
 
@@ -137,15 +166,16 @@ These repositories are preserved in read-only form for historical reference and 
 |---|---|
 | [MobilityDB-python](https://github.com/MobilityDB/MobilityDB-python) | [PyMEOS](https://github.com/MobilityDB/PyMEOS) |
 | [MobilityDB-JDBC](https://github.com/MobilityDB/MobilityDB-JDBC) | [JMEOS](https://github.com/MobilityDB/JMEOS) |
-| [MobilityPySpark](https://github.com/MobilityDB/MobilityPySpark) | [MobilitySpark](https://github.com/MobilityDB/MobilitySpark) |
 | [pg_mfserv](https://github.com/MobilityDB/pg_mfserv) | [MobilityAPI](https://github.com/MobilityDB/MobilityAPI) |
+| [MobilityPySpark](https://github.com/MobilityDB/MobilityPySpark) | [MobilitySpark](https://github.com/MobilityDB/MobilitySpark) |
 
 ## Where to start
 
 | If you want to… | Go to |
 |---|---|
 | Understand what MEOS is, the type system, encodings, tutorials | [libmeos.org](https://libmeos.org) |
-| Use the SQL surface | [MobilityDB](https://github.com/MobilityDB/MobilityDB) (PostgreSQL), [MobilityDuck](https://github.com/MobilityDB/MobilityDuck) (DuckDB), or [MobilitySpark](https://github.com/MobilityDB/MobilitySpark) (Spark SQL) |
+| Use the SQL surface | [MobilityDB](https://github.com/MobilityDB/MobilityDB) (PostgreSQL), [MobilityDuck](https://github.com/MobilityDB/MobilityDuck) (DuckDB), or [MobilitySpark](https://github.com/MobilityDB/MobilitySpark) (Spark) |
+| Move data between engines / build a data lake | The [Arrow C Data Interface](https://arrow.apache.org/docs/format/CDataInterface.html) export + Parquet — see the interoperability index in [MobilityDB](https://github.com/MobilityDB/MobilityDB) (`doc/temporal-parquet/`) |
 | Use MEOS from your language | The corresponding [language binding](https://libmeos.org/bindings/) |
 | Cite the project in academic work | The book reference above; or the `CITATION.cff` of any binding repo |
 
