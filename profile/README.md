@@ -56,9 +56,15 @@ This is the platform's **portable computation** property — one query text, thr
 | [MobilityDuck](https://github.com/MobilityDB/MobilityDuck) | DuckDB extension — peer SQL layer for analytics / columnar workloads. |
 | [MobilitySpark](https://github.com/MobilityDB/MobilitySpark) | Apache Spark plugin — peer SQL layer for distributed and large-scale workloads, with MEOS-backed UDFs and DataFrame integration. |
 
-### 🌊 Stream layers (planned)
+### 🌊 Stream layers
 
-**Planned — not yet built.** The same edge-to-cloud model is planned for the streaming side of the ecosystem, each tool in its canonical role: [MobilityNebula](https://github.com/MobilityDB/MobilityNebula) ([NebulaStream](https://nebula.stream/)) on the **edge**, [MobilityKafka](https://github.com/MobilityDB/MobilityKafka) ([Apache Kafka](https://kafka.apache.org/)) as the streaming **transport backbone** in between, and [MobilityFlink](https://github.com/MobilityDB/MobilityFlink) ([Apache Flink](https://flink.apache.org/)) for **stream processing in the cloud** — reproducing the SNCB benchmark from [*MobilityNebula* (EDBT 2026)](https://docs.mobilitydb.com/pub/MobilityNebula_EDBT_2026.pdf). It is drawn as a dashed, ghosted box — same format as the other peer boxes, second in the peers row of the figure above (dashed = not yet built).
+The same edge-to-cloud model runs on the streaming side of the ecosystem, each tool in its canonical role: [MobilityNebula](https://github.com/MobilityDB/MobilityNebula) ([NebulaStream](https://nebula.stream/)) on the **edge**, [MobilityKafka](https://github.com/MobilityDB/MobilityKafka) ([Apache Kafka](https://kafka.apache.org/)) as the streaming **transport backbone** in between, and [MobilityFlink](https://github.com/MobilityDB/MobilityFlink) ([Apache Flink](https://flink.apache.org/)) for **stream processing in the cloud**. The published reference architecture is [*MobilityNebula* (EDBT 2026)](https://docs.mobilitydb.com/pub/MobilityNebula_EDBT_2026.pdf), with real railway data (SNCB) as the application demonstration. It is the second peer in the row of peer surfaces in the figure above.
+
+The parity contract matches the SQL-layer one: **the same BerlinMOD reference queries run across all three platforms in three streaming forms — continuous (always-on), windowed (tumbling / sliding / session), and snapshot (query at time T, ≡ the batch result at the same scale factor)** — with the snapshot form anchored to the batch BerlinMOD outputs in [MobilityDB-BerlinMOD](https://github.com/MobilityDB/MobilityDB-BerlinMOD). The same generator and scale-factor axis as the batch side are reused.
+
+The Flink and Kafka platforms use [JMEOS](https://github.com/MobilityDB/JMEOS); MobilityNebula calls MEOS directly through its C ABI.
+
+The streaming-form parity matrix is scaffolded across all three runtimes — [MobilityFlink#3](https://github.com/MobilityDB/MobilityFlink/pull/3), [MobilityKafka#1](https://github.com/MobilityDB/MobilityKafka/pull/1) and [MobilityNebula#15](https://github.com/MobilityDB/MobilityNebula/pull/15) — each implementing the BerlinMOD-Q × 3-form cells in the runtime's native operator surface. MobilityFlink and MobilityKafka cover all 27 cells fully; MobilityNebula covers all 27 cells too, with 18 cells full in-runtime and 9 cells (Q5, Q6, Q9) expressed as partial — NebulaStream emits the per-window inputs and a consumer post-processes for the final BerlinMOD-Q answer. The path to "full" for those 9 cells is documented one-PR-each in the MobilityNebula scaffold.
 
 | Repository | Engine |
 |---|---|

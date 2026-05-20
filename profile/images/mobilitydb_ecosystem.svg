@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 545" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title>MobilityDB Ecosystem</title>
-  <desc>Architecture diagram. MEOS (canonical C library) at the center; SQL layers (MobilityDB, MobilityDuck, MobilitySpark), HTTP/API (MobilityAPI), and language bindings (PyMEOS, JMEOS, meos-rs, GoMEOS, MEOS.NET, MEOS.js) as peer layers above; MEOS-API as a side codegen catalog projected to OpenAPI, MCP and a runtime HTTP server; application platforms, visualization, and cloud deployment as the upper layer; a portable-data interchange band (Arrow C Data Interface; Parquet / Temporal Data Lake) beneath MEOS. A dashed, ghosted PLANNED (roadmap) Stream-layers box — same format and same peers row as the SQL, HTTP/API and Language-Bindings boxes — not yet built — shows the same edge-to-cloud model extending to streaming: MobilityNebula on the edge, MobilityKafka as the streaming transport backbone, MobilityFlink for cloud stream processing. The portable-data interchange band is shown in teal.</desc>
+  <desc>Architecture diagram. MEOS (canonical C library) at the center; SQL layers (MobilityDB, MobilityDuck, MobilitySpark), Stream layers (MobilityNebula on the edge, MobilityKafka as the streaming transport backbone, MobilityFlink for cloud stream processing), HTTP/API (MobilityAPI), and language bindings (PyMEOS, JMEOS, meos-rs, GoMEOS, MEOS.NET, MEOS.js) as peer surfaces above; MEOS-API as a side codegen catalog projected to OpenAPI, MCP and a runtime HTTP server; application platforms, visualization, and cloud deployment as the upper layer; a portable-data interchange band (Arrow C Data Interface; Parquet / Temporal Data Lake) beneath MEOS in teal. The Stream-layers box is the second peer in the row, matching the SQL, HTTP/API and Language-Bindings boxes in shape.</desc>
 
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
@@ -37,7 +37,7 @@
   <line x1="600" y1="160" x2="738" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
   <line x1="960" y1="160" x2="1014" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- Peers row: SQL · Stream(planned,dashed) · HTTP/API · Language Bindings — four equal-width (252) boxes, gap 24, all y=200 h=140 -->
+  <!-- Peers row: SQL · Stream · HTTP/API · Language Bindings — four equal-width (252) boxes, gap 24, all y=200 h=140 -->
   <!-- SQL Layers (pastel blue) -->
   <rect x="60" y="200" width="252" height="140" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
   <text x="186" y="221" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">SQL Layers</text>
@@ -48,17 +48,15 @@
   <rect x="76" y="293" width="220" height="26" rx="6" fill="#bfdbfe" stroke="#60a5fa" stroke-width="1"/>
   <text x="186" y="311" text-anchor="middle" font-size="12" fill="#1e3a8a" font-weight="600">MobilitySpark · Spark</text>
 
-  <!-- Stream layers — PLANNED (roadmap): SAME FORMAT + SAME ROW as the peer boxes, dashed + ghosted = NOT yet built; do not make solid/real or delete until the stream parity lands. -->
-  <g opacity="0.8">
-  <rect x="336" y="200" width="252" height="140" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7,5"/>
-  <text x="462" y="221" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">Stream Layers — planned</text>
-  <rect x="352" y="231" width="220" height="26" rx="6" fill="#eef2f7" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5,4"/>
-  <text x="462" y="249" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">MobilityNebula · NebulaStream</text>
-  <rect x="352" y="262" width="220" height="26" rx="6" fill="#eef2f7" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5,4"/>
-  <text x="462" y="280" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">MobilityKafka · Kafka</text>
-  <rect x="352" y="293" width="220" height="26" rx="6" fill="#eef2f7" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5,4"/>
-  <text x="462" y="311" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">MobilityFlink · Flink</text>
-  </g>
+  <!-- Stream layers (pastel sky) — peer to SQL/HTTP/Bindings; runs the BerlinMOD-9 × 3-form parity matrix on Flink, Kafka Streams and NebulaStream. -->
+  <rect x="336" y="200" width="252" height="140" rx="10" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="2"/>
+  <text x="462" y="221" text-anchor="middle" font-size="13" font-weight="700" fill="#0c4a6e">Stream Layers</text>
+  <rect x="352" y="231" width="220" height="26" rx="6" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/>
+  <text x="462" y="249" text-anchor="middle" font-size="12" font-weight="600" fill="#075985">MobilityNebula · NebulaStream</text>
+  <rect x="352" y="262" width="220" height="26" rx="6" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/>
+  <text x="462" y="280" text-anchor="middle" font-size="12" font-weight="600" fill="#075985">MobilityKafka · Kafka</text>
+  <rect x="352" y="293" width="220" height="26" rx="6" fill="#bae6fd" stroke="#38bdf8" stroke-width="1"/>
+  <text x="462" y="311" text-anchor="middle" font-size="12" font-weight="600" fill="#075985">MobilityFlink · Flink</text>
 
   <!-- HTTP / API (pastel emerald) -->
   <rect x="612" y="200" width="252" height="140" rx="10" fill="#d1fae5" stroke="#6ee7b7" stroke-width="2"/>
@@ -85,8 +83,9 @@
 
   <!-- Mid-layer -> MEOS arrows -->
   <line x1="186" y1="340" x2="500" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="738" y1="340" x2="600" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="1014" y1="340" x2="700" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="462" y1="340" x2="550" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="738" y1="340" x2="650" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="1014" y1="340" x2="750" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
 
   <!-- MEOS core (pastel indigo, anchoring) -->
   <rect x="380" y="380" width="440" height="100" rx="10" fill="#c7d2fe" stroke="#818cf8" stroke-width="2"/>
@@ -125,8 +124,8 @@
   <text x="208" y="466" font-size="10" fill="#334155">Cloud</text>
   <rect x="70" y="472" width="12" height="12" rx="2" fill="#5eead4" stroke="#0d9488"/>
   <text x="88" y="482" font-size="10" fill="#334155">Portable data</text>
-  <rect x="190" y="472" width="12" height="12" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="2,1.5"/>
-  <text x="208" y="482" font-size="10" fill="#334155">Stream (planned)</text>
+  <rect x="190" y="472" width="12" height="12" rx="2" fill="#e0f2fe" stroke="#7dd3fc"/>
+  <text x="208" y="482" font-size="10" fill="#334155">Stream layers</text>
 
   <!-- MEOS -> portable-data interchange -->
   <line x1="600" y1="480" x2="600" y2="498" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
