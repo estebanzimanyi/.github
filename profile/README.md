@@ -64,11 +64,11 @@ The parity contract matches the SQL-layer one: **the same BerlinMOD reference qu
 
 The Flink and Kafka platforms use [JMEOS](https://github.com/MobilityDB/JMEOS); MobilityNebula calls MEOS directly through its C ABI.
 
-The streaming-form parity matrix is scaffolded across all three runtimes — [MobilityFlink#3](https://github.com/MobilityDB/MobilityFlink/pull/3), [MobilityKafka#1](https://github.com/MobilityDB/MobilityKafka/pull/1) and [MobilityNebula#15](https://github.com/MobilityDB/MobilityNebula/pull/15) — each implementing the full 27-cell BerlinMOD-Q × 3-form matrix in the runtime's native operator surface. **81 / 81 cells full, 0 partial.**
+The streaming-form parity matrix is implemented across all three runtimes — each covering the full BerlinMOD-Q × 3-form matrix in the runtime's native operator surface.
 
-On the JVM platforms the spatial-predicate surface routes through a single `MEOSBridge` class — [MobilityFlink#4](https://github.com/MobilityDB/MobilityFlink/pull/4) and [MobilityKafka#2](https://github.com/MobilityDB/MobilityKafka/pull/2) — calling MEOS' `geog_dwithin` over WGS84 geographies via [JMEOS#18](https://github.com/MobilityDB/JMEOS/pull/18)'s `utils.spatial.Haversine` and `utils.spatial.PointToSegment` wrappers when libmeos is loadable, with a pure-Java great-circle fallback for the mini-cluster local-test runs. The 27 cells × 2 platforms are MEOS-backed at every predicate AND distance site.
+On the JVM platforms the spatial-predicate surface routes through a single `MEOSBridge` class, calling MEOS' `geog_dwithin` over WGS84 geographies via [JMEOS](https://github.com/MobilityDB/JMEOS)'s `utils.spatial.Haversine` and `utils.spatial.PointToSegment` wrappers when libmeos is loadable, with a pure-Java great-circle fallback for the mini-cluster local-test runs.
 
-On the NebulaStream side, three stacked PRs add the BerlinMOD-specific aggregations across the four pipeline layers (logical / physical / parser / lowering): [MobilityNebula#16](https://github.com/MobilityDB/MobilityNebula/pull/16) adds `TEMPORAL_LENGTH` (Q6), and [MobilityNebula#17](https://github.com/MobilityDB/MobilityNebula/pull/17) adds `PAIR_MEETING` (Q5) + `CROSS_DISTANCE` (Q9), all calling MEOS C directly. Together with PR#15, the MobilityNebula matrix-row is 27 / 27 full.
+On the NebulaStream side, the BerlinMOD-specific aggregations (`TEMPORAL_LENGTH` for Q6, `PAIR_MEETING` for Q5, `CROSS_DISTANCE` for Q9) are wired across NebulaStream's four pipeline layers (logical / physical / parser / lowering), all calling MEOS C directly.
 
 | Repository | Engine |
 |---|---|
