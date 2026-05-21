@@ -66,6 +66,8 @@ The Flink and Kafka platforms use [JMEOS](https://github.com/MobilityDB/JMEOS); 
 
 The streaming-form parity matrix is scaffolded across all three runtimes — [MobilityFlink#3](https://github.com/MobilityDB/MobilityFlink/pull/3), [MobilityKafka#1](https://github.com/MobilityDB/MobilityKafka/pull/1) and [MobilityNebula#15](https://github.com/MobilityDB/MobilityNebula/pull/15) — each implementing the BerlinMOD-Q × 3-form cells in the runtime's native operator surface. MobilityFlink and MobilityKafka cover all 27 cells fully; MobilityNebula covers all 27 cells too, with 18 cells full in-runtime and 9 cells (Q5, Q6, Q9) expressed as partial — NebulaStream emits the per-window inputs and a consumer post-processes for the final BerlinMOD-Q answer. The path to "full" for those 9 cells is documented one-PR-each in the MobilityNebula scaffold.
 
+On the JVM platforms the spatial-predicate surface routes through a single `MEOSBridge` class — [MobilityFlink#4](https://github.com/MobilityDB/MobilityFlink/pull/4) and [MobilityKafka#2](https://github.com/MobilityDB/MobilityKafka/pull/2) — calling MEOS' `geog_dwithin` over WGS84 geographies via JMEOS 1.4 when libmeos is loadable, with a pure-Java great-circle fallback for the mini-cluster local-test runs. The 27 cells × 2 platforms are now MEOS-backed at the predicate site; NebulaStream calls MEOS C ABI directly with no bridge layer needed.
+
 | Repository | Engine |
 |---|---|
 | [MobilityNebula](https://github.com/MobilityDB/MobilityNebula) | [NebulaStream](https://nebula.stream/) — edge |
