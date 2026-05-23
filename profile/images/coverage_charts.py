@@ -56,7 +56,7 @@ hbar(
     [
         ("MobilityFlink",  100.0, "100.0%  ·  1945 / 1945  · proven", "#1a9988", True),
         ("MobilityKafka",  100.0, "100.0%  ·  1945 / 1945  · proven", "#1a9988", True),
-        ("MobilityNebula",  15.6, "15.6%  ·  304 / 1945  · wired",    "#1a9988", False),
+        ("MobilityNebula",  15.9, "15.9%  ·  309 / 1945  · wired",    "#1a9988", False),
     ],
     "of 1,945 streamable MEOS functions   (solid = proven callable · hatched = wired)",
 )
