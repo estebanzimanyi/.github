@@ -22,6 +22,13 @@ The companion datasets and reproducible scripts live in [MobilityDataScienceBook
 
 <img src="https://github.com/MobilityDB/MobilityDataScienceBook/blob/main/978-3-031-82636-8.webp" width="150" alt="Mobility Data Science Book" />
 
+## Parity & benchmarks
+
+Evidence that the ecosystem is complete, correct, and ready for real-world deployment — **measured, not asserted**. Two published assessments, one per platform group, each covering function-surface coverage, BerlinMOD query-result parity (identical results across engines), and BerlinMOD performance benchmarks:
+
+- **[Streaming — parity & benchmarks](streaming-parity.md)** — MobilityFlink / MobilityKafka / MobilityNebula.
+- **[Databases — parity & benchmarks](database-parity.md)** — MobilityDB / MobilityDuck / MobilitySpark.
+
 ## Repository map
 
 <img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/mobilitydb_ecosystem.svg?v=2" width="800" alt="MobilityDB Ecosystem — MEOS C core as the foundation; MobilityDB/MobilityDuck/MobilitySpark SQL layers, MobilityNebula/MobilityKafka/MobilityFlink stream layers, MobilityAPI plus the MEOS-API OpenAPI/MCP/runtime contracts as the HTTP/API layer, and six language bindings as peer surfaces; MEOS-API as a side codegen catalog (IDL JSON + shape catalog); application, visualization and cloud as the top layer; a portable-data band (Arrow C Data Interface, TemporalParquet, Temporal Data Lake) beneath MEOS" />
