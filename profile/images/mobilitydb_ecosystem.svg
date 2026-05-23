@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 545" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 595" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
   <title>MobilityDB Ecosystem</title>
-  <desc>Architecture diagram. MEOS (canonical C library) at the center; SQL layers (MobilityDB, MobilityDuck, MobilitySpark), HTTP/API (MobilityAPI), and language bindings (PyMEOS, JMEOS, meos-rs, GoMEOS, MEOS.NET, MEOS.js) as peer layers above; MEOS-API as a side codegen catalog projected to OpenAPI, MCP and a runtime HTTP server; application platforms, visualization, and cloud deployment as the upper layer; a portable-data interchange band (Arrow C Data Interface; Parquet / Temporal Data Lake) beneath MEOS. A dashed, ghosted PLANNED (roadmap) Stream-layers box — same format and same peers row as the SQL, HTTP/API and Language-Bindings boxes — not yet built — shows the same edge-to-cloud model extending to streaming: MobilityNebula on the edge, MobilityKafka as the streaming transport backbone, MobilityFlink for cloud stream processing. The portable-data interchange band is shown in teal.</desc>
+  <desc>Architecture diagram. MEOS (canonical C library) is the broad foundation at the center; SQL layers (MobilityDB, MobilityDuck, MobilitySpark), Stream layers (MobilityNebula on the edge, MobilityKafka as the streaming transport backbone, MobilityFlink for cloud stream processing), HTTP/API (MobilityAPI's OGC API – Moving Features plus the MEOS-API OpenAPI/MCP/runtime contracts), and language bindings (PyMEOS, JMEOS, meos-rs, GoMEOS, MEOS.NET, MEOS.js) sit as peer surfaces above; MEOS-API is a side codegen catalog (IDL JSON + shape catalog) that generates the bindings and the HTTP API contracts; application platforms, visualization, and cloud deployment form the top layer; a portable-data interchange band beneath MEOS in green carries the Arrow C Data Interface, TemporalParquet, and the Temporal Data Lake. Each box's color matches the colored-square marker on the matching README section; every inner box names one ecosystem component with a uniform 16px border to its enclosing box; one font size for all box content and one for all box titles.</desc>
 
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
@@ -12,127 +12,139 @@
     </marker>
   </defs>
 
-  <text x="600" y="30" text-anchor="middle" font-size="20" font-weight="600" fill="#334155">MobilityDB Ecosystem</text>
+  <text x="600" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#334155">MobilityDB Ecosystem</text>
 
-  <!-- Application platforms (pastel yellow) -->
-  <rect x="60" y="55" width="360" height="105" rx="10" fill="#fefce8" stroke="#fde047" stroke-width="2"/>
-  <text x="240" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#854d0e">Application Platforms</text>
-  <text x="240" y="112" text-anchor="middle" font-size="11" fill="#713f12">Pandas · OpenTripPlanner</text>
-  <text x="240" y="134" text-anchor="middle" font-size="11" fill="#713f12">MapMatching</text>
+  <!-- ===== Top layer (boxes h=140 to match the peer row; uniform 16px inner border) ===== -->
+  <!-- Application platforms (yellow 🟨) -->
+  <rect x="60" y="42" width="360" height="140" rx="10" fill="#FDCB58" stroke="#e0ac2e" stroke-width="2"/>
+  <text x="240" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#5c4708">Application Platforms</text>
+  <rect x="76" y="88" width="156" height="26" rx="6" fill="#fdf0cf" stroke="#f0d178" stroke-width="1"/>
+  <text x="154" y="106" text-anchor="middle" font-size="12" font-weight="600" fill="#5c4708">Pandas</text>
+  <rect x="248" y="88" width="156" height="26" rx="6" fill="#fdf0cf" stroke="#f0d178" stroke-width="1"/>
+  <text x="326" y="106" text-anchor="middle" font-size="12" font-weight="600" fill="#5c4708">OpenTripPlanner</text>
+  <rect x="76" y="130" width="156" height="26" rx="6" fill="#fdf0cf" stroke="#f0d178" stroke-width="1"/>
+  <text x="154" y="148" text-anchor="middle" font-size="12" font-weight="600" fill="#5c4708">MapMatching</text>
+  <rect x="248" y="130" width="156" height="26" rx="6" fill="#fdf0cf" stroke="#f0d178" stroke-width="1"/>
+  <text x="326" y="148" text-anchor="middle" font-size="12" font-weight="600" fill="#5c4708">PublicTransport</text>
 
-  <!-- Visualization (pastel orange) -->
-  <rect x="440" y="55" width="320" height="105" rx="10" fill="#ffedd5" stroke="#fdba74" stroke-width="2"/>
-  <text x="600" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#9a3412">Visualization</text>
-  <text x="600" y="102" text-anchor="middle" font-size="11" fill="#7c2d12">Deck · OpenLayers · Leaflet</text>
-  <text x="600" y="124" text-anchor="middle" font-size="11" fill="#7c2d12">QGIS · GeoServer · MOVE</text>
+  <!-- Visualization (orange 🟧) -->
+  <rect x="440" y="42" width="320" height="140" rx="10" fill="#F4900C" stroke="#c9760a" stroke-width="2"/>
+  <text x="600" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#5a2d0c">Visualization</text>
+  <rect x="456" y="76" width="136" height="26" rx="6" fill="#fde3c4" stroke="#f5b878" stroke-width="1"/>
+  <text x="524" y="94" text-anchor="middle" font-size="12" font-weight="600" fill="#5a2d0c">Deck</text>
+  <rect x="608" y="76" width="136" height="26" rx="6" fill="#fde3c4" stroke="#f5b878" stroke-width="1"/>
+  <text x="676" y="94" text-anchor="middle" font-size="12" font-weight="600" fill="#5a2d0c">OpenLayers</text>
+  <rect x="456" y="108" width="136" height="26" rx="6" fill="#fde3c4" stroke="#f5b878" stroke-width="1"/>
+  <text x="524" y="126" text-anchor="middle" font-size="12" font-weight="600" fill="#5a2d0c">Leaflet</text>
+  <rect x="608" y="108" width="136" height="26" rx="6" fill="#fde3c4" stroke="#f5b878" stroke-width="1"/>
+  <text x="676" y="126" text-anchor="middle" font-size="12" font-weight="600" fill="#5a2d0c">QGIS</text>
+  <rect x="456" y="140" width="136" height="26" rx="6" fill="#fde3c4" stroke="#f5b878" stroke-width="1"/>
+  <text x="524" y="158" text-anchor="middle" font-size="12" font-weight="600" fill="#5a2d0c">GeoServer</text>
+  <rect x="608" y="140" width="136" height="26" rx="6" fill="#fde3c4" stroke="#f5b878" stroke-width="1"/>
+  <text x="676" y="158" text-anchor="middle" font-size="12" font-weight="600" fill="#5a2d0c">MOVE</text>
 
-  <!-- Cloud (pastel cyan) -->
-  <rect x="780" y="55" width="360" height="105" rx="10" fill="#cffafe" stroke="#67e8f9" stroke-width="2"/>
-  <text x="960" y="78" text-anchor="middle" font-size="13" font-weight="700" fill="#155e75">Cloud Deployment</text>
-  <text x="960" y="102" text-anchor="middle" font-size="11" fill="#164e63">AWS · Azure · GCP</text>
-  <text x="960" y="124" text-anchor="middle" font-size="11" fill="#164e63">docker</text>
+  <!-- Cloud (blue 🟦) -->
+  <rect x="780" y="42" width="360" height="140" rx="10" fill="#55ACEE" stroke="#2b80c9" stroke-width="2"/>
+  <text x="960" y="66" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Cloud Deployment</text>
+  <rect x="796" y="88" width="156" height="26" rx="6" fill="#dcecfb" stroke="#9fcdee" stroke-width="1"/>
+  <text x="874" y="106" text-anchor="middle" font-size="12" font-weight="600" fill="#15406b">AWS</text>
+  <rect x="968" y="88" width="156" height="26" rx="6" fill="#dcecfb" stroke="#9fcdee" stroke-width="1"/>
+  <text x="1046" y="106" text-anchor="middle" font-size="12" font-weight="600" fill="#15406b">Azure</text>
+  <rect x="796" y="130" width="156" height="26" rx="6" fill="#dcecfb" stroke="#9fcdee" stroke-width="1"/>
+  <text x="874" y="148" text-anchor="middle" font-size="12" font-weight="600" fill="#15406b">GCP</text>
+  <rect x="968" y="130" width="156" height="26" rx="6" fill="#dcecfb" stroke="#9fcdee" stroke-width="1"/>
+  <text x="1046" y="148" text-anchor="middle" font-size="12" font-weight="600" fill="#15406b">docker</text>
 
-  <!-- Application -> mid-layer arrows -->
-  <line x1="240" y1="160" x2="186" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="600" y1="160" x2="738" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="960" y1="160" x2="1014" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Top -> peer arrows -->
+  <line x1="240" y1="182" x2="186" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="600" y1="182" x2="738" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="960" y1="182" x2="1014" y2="200" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- Peers row: SQL · Stream(planned,dashed) · HTTP/API · Language Bindings — four equal-width (252) boxes, gap 24, all y=200 h=140 -->
-  <!-- SQL Layers (pastel blue) -->
-  <rect x="60" y="200" width="252" height="140" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
-  <text x="186" y="221" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">SQL Layers</text>
-  <rect x="76" y="231" width="220" height="26" rx="6" fill="#bfdbfe" stroke="#60a5fa" stroke-width="1"/>
-  <text x="186" y="249" text-anchor="middle" font-size="12" fill="#1e3a8a" font-weight="600">MobilityDB · PostgreSQL</text>
-  <rect x="76" y="262" width="220" height="26" rx="6" fill="#bfdbfe" stroke="#60a5fa" stroke-width="1"/>
-  <text x="186" y="280" text-anchor="middle" font-size="12" fill="#1e3a8a" font-weight="600">MobilityDuck · DuckDB</text>
-  <rect x="76" y="293" width="220" height="26" rx="6" fill="#bfdbfe" stroke="#60a5fa" stroke-width="1"/>
-  <text x="186" y="311" text-anchor="middle" font-size="12" fill="#1e3a8a" font-weight="600">MobilitySpark · Spark</text>
+  <!-- ===== Peer row: SQL · Stream · HTTP/API · Language Bindings ===== -->
+  <!-- SQL Layers (blue 🟦) -->
+  <rect x="60" y="200" width="252" height="140" rx="10" fill="#55ACEE" stroke="#2b80c9" stroke-width="2"/>
+  <text x="186" y="224" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">SQL Layers</text>
+  <rect x="76" y="234" width="220" height="26" rx="6" fill="#e3f1fc" stroke="#9fcdee" stroke-width="1"/>
+  <text x="186" y="252" text-anchor="middle" font-size="12" fill="#15406b" font-weight="600">MobilityDB · PostgreSQL</text>
+  <rect x="76" y="266" width="220" height="26" rx="6" fill="#e3f1fc" stroke="#9fcdee" stroke-width="1"/>
+  <text x="186" y="284" text-anchor="middle" font-size="12" fill="#15406b" font-weight="600">MobilityDuck · DuckDB</text>
+  <rect x="76" y="298" width="220" height="26" rx="6" fill="#e3f1fc" stroke="#9fcdee" stroke-width="1"/>
+  <text x="186" y="316" text-anchor="middle" font-size="12" fill="#15406b" font-weight="600">MobilitySpark · Spark</text>
 
-  <!-- Stream layers — PLANNED (roadmap): SAME FORMAT + SAME ROW as the peer boxes, dashed + ghosted = NOT yet built; do not make solid/real or delete until the stream parity lands. -->
-  <g opacity="0.8">
-  <rect x="336" y="200" width="252" height="140" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7,5"/>
-  <text x="462" y="221" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">Stream Layers — planned</text>
-  <rect x="352" y="231" width="220" height="26" rx="6" fill="#eef2f7" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5,4"/>
-  <text x="462" y="249" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">MobilityNebula · NebulaStream</text>
-  <rect x="352" y="262" width="220" height="26" rx="6" fill="#eef2f7" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5,4"/>
-  <text x="462" y="280" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">MobilityKafka · Kafka</text>
-  <rect x="352" y="293" width="220" height="26" rx="6" fill="#eef2f7" stroke="#94a3b8" stroke-width="1" stroke-dasharray="5,4"/>
-  <text x="462" y="311" text-anchor="middle" font-size="12" font-weight="600" fill="#475569">MobilityFlink · Flink</text>
-  </g>
+  <!-- Stream layers (red 🟥) -->
+  <rect x="336" y="200" width="252" height="140" rx="10" fill="#DD2E44" stroke="#b21f33" stroke-width="2"/>
+  <text x="462" y="224" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Stream Layers</text>
+  <rect x="352" y="234" width="220" height="26" rx="6" fill="#fbe1e4" stroke="#f0a9b2" stroke-width="1"/>
+  <text x="462" y="252" text-anchor="middle" font-size="12" font-weight="600" fill="#8a1c2b">MobilityNebula · NebulaStream</text>
+  <rect x="352" y="266" width="220" height="26" rx="6" fill="#fbe1e4" stroke="#f0a9b2" stroke-width="1"/>
+  <text x="462" y="284" text-anchor="middle" font-size="12" font-weight="600" fill="#8a1c2b">MobilityKafka · Kafka</text>
+  <rect x="352" y="298" width="220" height="26" rx="6" fill="#fbe1e4" stroke="#f0a9b2" stroke-width="1"/>
+  <text x="462" y="316" text-anchor="middle" font-size="12" font-weight="600" fill="#8a1c2b">MobilityFlink · Flink</text>
 
-  <!-- HTTP / API (pastel emerald) -->
-  <rect x="612" y="200" width="252" height="140" rx="10" fill="#d1fae5" stroke="#6ee7b7" stroke-width="2"/>
-  <text x="738" y="225" text-anchor="middle" font-size="13" font-weight="700" fill="#047857">HTTP / API</text>
-  <rect x="632" y="252" width="212" height="28" rx="6" fill="#a7f3d0" stroke="#34d399" stroke-width="1"/>
-  <text x="738" y="271" text-anchor="middle" font-size="12" fill="#064e3b" font-weight="600">MobilityAPI</text>
-  <text x="738" y="298" text-anchor="middle" font-size="10" fill="#065f46">OGC API – Moving Features</text>
+  <!-- HTTP / API (green 🟩) -->
+  <rect x="612" y="200" width="252" height="140" rx="10" fill="#78B159" stroke="#5a8c41" stroke-width="2"/>
+  <text x="738" y="224" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">HTTP / API</text>
+  <rect x="628" y="246" width="220" height="26" rx="6" fill="#e7f2dd" stroke="#aacd92" stroke-width="1"/>
+  <text x="738" y="264" text-anchor="middle" font-size="12" fill="#3d5e2c" font-weight="600">MobilityAPI · OGC MF API</text>
+  <rect x="628" y="288" width="68" height="26" rx="6" fill="#e7f2dd" stroke="#aacd92" stroke-width="1"/>
+  <text x="662" y="306" text-anchor="middle" font-size="12" fill="#3d5e2c" font-weight="600">OpenAPI</text>
+  <rect x="704" y="288" width="68" height="26" rx="6" fill="#e7f2dd" stroke="#aacd92" stroke-width="1"/>
+  <text x="738" y="306" text-anchor="middle" font-size="12" fill="#3d5e2c" font-weight="600">MCP</text>
+  <rect x="780" y="288" width="68" height="26" rx="6" fill="#e7f2dd" stroke="#aacd92" stroke-width="1"/>
+  <text x="814" y="306" text-anchor="middle" font-size="12" fill="#3d5e2c" font-weight="600">runtime</text>
 
-  <!-- Language Bindings (pastel violet) — 2-col grid to fit the equal-width box -->
-  <rect x="888" y="200" width="252" height="140" rx="10" fill="#ede9fe" stroke="#c4b5fd" stroke-width="2"/>
-  <text x="1014" y="221" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">Language Bindings</text>
-  <rect x="904" y="231" width="106" height="26" rx="6" fill="#ddd6fe" stroke="#a78bfa" stroke-width="1"/>
-  <text x="957" y="249" text-anchor="middle" font-size="11" fill="#4c1d95" font-weight="600">PyMEOS</text>
-  <rect x="1018" y="231" width="106" height="26" rx="6" fill="#ddd6fe" stroke="#a78bfa" stroke-width="1"/>
-  <text x="1071" y="249" text-anchor="middle" font-size="11" fill="#4c1d95" font-weight="600">JMEOS</text>
-  <rect x="904" y="262" width="106" height="26" rx="6" fill="#ddd6fe" stroke="#a78bfa" stroke-width="1"/>
-  <text x="957" y="280" text-anchor="middle" font-size="11" fill="#4c1d95" font-weight="600">meos-rs</text>
-  <rect x="1018" y="262" width="106" height="26" rx="6" fill="#ddd6fe" stroke="#a78bfa" stroke-width="1"/>
-  <text x="1071" y="280" text-anchor="middle" font-size="11" fill="#4c1d95" font-weight="600">GoMEOS</text>
-  <rect x="904" y="293" width="106" height="26" rx="6" fill="#ddd6fe" stroke="#a78bfa" stroke-width="1"/>
-  <text x="957" y="311" text-anchor="middle" font-size="11" fill="#4c1d95" font-weight="600">MEOS.NET</text>
-  <rect x="1018" y="293" width="106" height="26" rx="6" fill="#ddd6fe" stroke="#a78bfa" stroke-width="1"/>
-  <text x="1071" y="311" text-anchor="middle" font-size="11" fill="#4c1d95" font-weight="600">MEOS.js</text>
+  <!-- Language Bindings (purple 🟪) — 2-col grid -->
+  <rect x="888" y="200" width="252" height="140" rx="10" fill="#AA8ED6" stroke="#8868bd" stroke-width="2"/>
+  <text x="1014" y="224" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Language Bindings</text>
+  <rect x="904" y="234" width="106" height="26" rx="6" fill="#efe9f8" stroke="#cdbce8" stroke-width="1"/>
+  <text x="957" y="252" text-anchor="middle" font-size="12" fill="#4c2f7a" font-weight="600">PyMEOS</text>
+  <rect x="1018" y="234" width="106" height="26" rx="6" fill="#efe9f8" stroke="#cdbce8" stroke-width="1"/>
+  <text x="1071" y="252" text-anchor="middle" font-size="12" fill="#4c2f7a" font-weight="600">JMEOS</text>
+  <rect x="904" y="266" width="106" height="26" rx="6" fill="#efe9f8" stroke="#cdbce8" stroke-width="1"/>
+  <text x="957" y="284" text-anchor="middle" font-size="12" fill="#4c2f7a" font-weight="600">GoMEOS</text>
+  <rect x="1018" y="266" width="106" height="26" rx="6" fill="#efe9f8" stroke="#cdbce8" stroke-width="1"/>
+  <text x="1071" y="284" text-anchor="middle" font-size="12" fill="#4c2f7a" font-weight="600">meos-rs</text>
+  <rect x="904" y="298" width="106" height="26" rx="6" fill="#efe9f8" stroke="#cdbce8" stroke-width="1"/>
+  <text x="957" y="316" text-anchor="middle" font-size="12" fill="#4c2f7a" font-weight="600">MEOS.NET</text>
+  <rect x="1018" y="298" width="106" height="26" rx="6" fill="#efe9f8" stroke="#cdbce8" stroke-width="1"/>
+  <text x="1071" y="316" text-anchor="middle" font-size="12" fill="#4c2f7a" font-weight="600">MEOS.js</text>
 
-  <!-- Mid-layer -> MEOS arrows -->
-  <line x1="186" y1="340" x2="500" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="738" y1="340" x2="600" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="1014" y1="340" x2="700" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Peer -> MEOS arrows -->
+  <line x1="186" y1="340" x2="200" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="462" y1="340" x2="430" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="738" y1="340" x2="640" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="1014" y1="340" x2="780" y2="380" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- MEOS core (pastel indigo, anchoring) -->
-  <rect x="380" y="380" width="440" height="100" rx="10" fill="#c7d2fe" stroke="#818cf8" stroke-width="2"/>
-  <text x="600" y="412" text-anchor="middle" font-size="22" font-weight="700" fill="#312e81">MEOS</text>
-  <text x="600" y="436" text-anchor="middle" font-size="13" fill="#3730a3">Mobility Engine, Open Source — C library</text>
-  <text x="600" y="458" text-anchor="middle" font-size="11" fill="#4338ca">canonical implementation</text>
+  <!-- ===== MEOS core (purple 🟪) — broad foundation ===== -->
+  <rect x="60" y="380" width="760" height="100" rx="10" fill="#AA8ED6" stroke="#8868bd" stroke-width="2"/>
+  <text x="440" y="414" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">MEOS</text>
+  <text x="440" y="438" text-anchor="middle" font-size="12" fill="#f3eefb">Mobility Engine, Open Source — C library</text>
+  <text x="440" y="460" text-anchor="middle" font-size="12" fill="#ece4f6">canonical implementation</text>
 
-  <!-- MEOS-API (pastel amber) — right side, directly under Bindings (short codegen link, no crossings) -->
-  <rect x="860" y="380" width="280" height="100" rx="10" fill="#fef3c7" stroke="#fcd34d" stroke-width="2"/>
-  <text x="1000" y="408" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">MEOS-API</text>
-  <text x="1000" y="430" text-anchor="middle" font-size="11" fill="#78350f">codegen catalog</text>
-  <text x="1000" y="448" text-anchor="middle" font-size="10" fill="#92400e">meos-api.json from MEOS headers</text>
-  <text x="1000" y="466" text-anchor="middle" font-size="10" fill="#92400e">bindings · OpenAPI · MCP · runtime</text>
+  <!-- ===== MEOS-API (brown 🟫) — side codegen catalog; inner boxes share the uniform 16px border ===== -->
+  <rect x="860" y="380" width="280" height="100" rx="10" fill="#C1694F" stroke="#9c4f3a" stroke-width="2"/>
+  <text x="1000" y="402" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">MEOS-API</text>
+  <rect x="876" y="412" width="248" height="26" rx="6" fill="#e9d2c8" stroke="#cc9b87" stroke-width="1"/>
+  <text x="1000" y="430" text-anchor="middle" font-size="12" font-weight="600" fill="#7a3b29">IDL JSON (meos-api.json)</text>
+  <rect x="876" y="444" width="248" height="26" rx="6" fill="#e9d2c8" stroke="#cc9b87" stroke-width="1"/>
+  <text x="1000" y="462" text-anchor="middle" font-size="12" font-weight="600" fill="#7a3b29">shape-metadata catalog</text>
 
-  <!-- MEOS-API -> Bindings (codegen, dotted) — short hop, right of the Bindings->MEOS arrow so no crossing -->
+  <!-- MEOS-API -> Bindings (codegen, dotted) -->
   <path d="M 1090 380 L 1090 340" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowDotted)"/>
-
-  <!-- Legend (left, under SQL Layers — no connectors, position-agnostic) -->
-  <rect x="60" y="380" width="280" height="118" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="70" y="400" font-size="11" font-weight="700" fill="#334155">Layer colors</text>
-  <rect x="70" y="408" width="12" height="12" rx="2" fill="#c7d2fe" stroke="#818cf8"/>
-  <text x="88" y="418" font-size="10" fill="#334155">Core (MEOS)</text>
-  <rect x="70" y="424" width="12" height="12" rx="2" fill="#bfdbfe" stroke="#60a5fa"/>
-  <text x="88" y="434" font-size="10" fill="#334155">SQL layers</text>
-  <rect x="70" y="440" width="12" height="12" rx="2" fill="#a7f3d0" stroke="#34d399"/>
-  <text x="88" y="450" font-size="10" fill="#334155">HTTP / API</text>
-  <rect x="70" y="456" width="12" height="12" rx="2" fill="#ddd6fe" stroke="#a78bfa"/>
-  <text x="88" y="466" font-size="10" fill="#334155">Language bindings</text>
-  <rect x="190" y="408" width="12" height="12" rx="2" fill="#fde68a" stroke="#fcd34d"/>
-  <text x="208" y="418" font-size="10" fill="#334155">Tooling</text>
-  <rect x="190" y="424" width="12" height="12" rx="2" fill="#fefce8" stroke="#fde047"/>
-  <text x="208" y="434" font-size="10" fill="#334155">Application</text>
-  <rect x="190" y="440" width="12" height="12" rx="2" fill="#ffedd5" stroke="#fdba74"/>
-  <text x="208" y="450" font-size="10" fill="#334155">Visualization</text>
-  <rect x="190" y="456" width="12" height="12" rx="2" fill="#cffafe" stroke="#67e8f9"/>
-  <text x="208" y="466" font-size="10" fill="#334155">Cloud</text>
-  <rect x="70" y="472" width="12" height="12" rx="2" fill="#5eead4" stroke="#0d9488"/>
-  <text x="88" y="482" font-size="10" fill="#334155">Portable data</text>
-  <rect x="190" y="472" width="12" height="12" rx="2" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="2,1.5"/>
-  <text x="208" y="482" font-size="10" fill="#334155">Stream (planned)</text>
+  <!-- MEOS-API -> HTTP/API (OpenAPI/MCP/runtime contracts generated from MEOS-API, dotted) -->
+  <path d="M 878 380 Q 852 360 836 342" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowDotted)"/>
 
   <!-- MEOS -> portable-data interchange -->
-  <line x1="600" y1="480" x2="600" y2="498" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="440" y1="480" x2="440" y2="498" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <!-- Portable data: Arrow C Data Interface / Parquet / Temporal Data Lake (teal — high-visibility) -->
-  <rect x="60" y="498" width="1080" height="34" rx="8" fill="#5eead4" stroke="#0d9488" stroke-width="2"/>
-  <text x="600" y="520" text-anchor="middle" font-size="12" font-weight="700" fill="#134e4a">Portable data — Arrow C Data Interface · Parquet / Temporal Data Lake</text>
+  <!-- ===== Portable data interchange band (green 🟩) — title on top, like the other layers ===== -->
+  <rect x="60" y="498" width="1080" height="84" rx="10" fill="#78B159" stroke="#5a8c41" stroke-width="2"/>
+  <text x="600" y="520" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Portable Data</text>
+  <rect x="76" y="534" width="338" height="32" rx="6" fill="#e7f2dd" stroke="#aacd92" stroke-width="1"/>
+  <text x="245" y="555" text-anchor="middle" font-size="12" font-weight="600" fill="#3d5e2c">Arrow C Data Interface</text>
+  <rect x="430" y="534" width="338" height="32" rx="6" fill="#e7f2dd" stroke="#aacd92" stroke-width="1"/>
+  <text x="599" y="555" text-anchor="middle" font-size="12" font-weight="600" fill="#3d5e2c">TemporalParquet</text>
+  <rect x="784" y="534" width="340" height="32" rx="6" fill="#e7f2dd" stroke="#aacd92" stroke-width="1"/>
+  <text x="954" y="555" text-anchor="middle" font-size="12" font-weight="600" fill="#3d5e2c">Temporal Data Lake</text>
 
 </svg>
