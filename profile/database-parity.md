@@ -18,11 +18,7 @@ on real workloads?* — with reproducible evidence rather than assertion.
 
 Coverage of the **MobilityDB SQL surface** — each engine over its active-addressable scope:
 
-```text
-MobilityDB      ████████████████████  reference     100 %    full regression suite
-MobilityDuck    ████████████████████   943 / 943    100.0%   active scope · extended families in progress
-MobilitySpark   ███████████████████▉  1571 / 1577    99.6%   + 29 / 29 portable dialect
-```
+<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/database-coverage.png?v=1" width="760" alt="MobilityDB SQL surface coverage: MobilityDB 100% (reference), MobilityDuck 100.0% (943/943 active scope), MobilitySpark 99.6% (1571/1577) plus 29/29 portable dialect" />
 
 - **Correctness** — BerlinMOD reference queries return **identical results** across all three engines ✓
 - **Benchmark** — cross-platform timings ▸ [report #29](https://github.com/MobilityDB/MobilityDB-BerlinMOD/pull/29) *(dated runs publishing)*

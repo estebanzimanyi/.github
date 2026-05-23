@@ -18,11 +18,7 @@ deploy on real workloads?* — with reproducible evidence rather than assertion.
 
 Coverage of the **1,945 streamable MEOS functions** — confirmed callable on a real `libmeos`:
 
-```text
-MobilityFlink   ████████████████████  1945 / 1945   100.0%   proven callable
-MobilityKafka   ████████████████████  1945 / 1945   100.0%   proven callable
-MobilityNebula  █▌                     147 / 1945     7.6%   wired · compile-verified
-```
+<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/streaming-coverage.png?v=1" width="760" alt="Streaming MEOS function coverage of 1,945 streamable functions: MobilityFlink 100.0% (1945/1945, proven callable), MobilityKafka 100.0% (1945/1945, proven callable), MobilityNebula 7.6% (147/1945, wired)" />
 
 - **Correctness** — BerlinMOD reference queries, snapshot form **= batch result** ✓
 - **Benchmark** — cross-platform timings ▸ [report #29](https://github.com/MobilityDB/MobilityDB-BerlinMOD/pull/29) *(dated runs publishing)*
