@@ -18,7 +18,7 @@ deploy on real workloads?* — with reproducible evidence rather than assertion.
 
 Coverage of the **1,945 streamable MEOS functions** — confirmed callable on a real `libmeos`:
 
-<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/streaming-coverage.png?v=4" width="760" alt="Streaming MEOS function coverage of 1,945 streamable functions: MobilityFlink 100.0% (1945/1945, proven callable), MobilityKafka 100.0% (1945/1945, proven callable), MobilityNebula 12.5% (243/1945, wired)" />
+<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/streaming-coverage.png?v=5" width="760" alt="Streaming MEOS function coverage of 1,945 streamable functions: MobilityFlink 100.0% (1945/1945, proven callable), MobilityKafka 100.0% (1945/1945, proven callable), MobilityNebula 12.6% (245/1945, wired)" />
 
 - **Correctness** — all **9 BerlinMOD queries × 3 streaming forms = 27/27 cells** reproduce the batch result on every platform; the Flink snapshot output is **byte-identical** to the batch oracle.
 
@@ -55,14 +55,14 @@ Three layers, increasing in strength:
 |---|--:|--:|--:|
 | **MobilityFlink**  | **1,945 callable** | 1,945 | **100.0 %** |
 | **MobilityKafka**  | **1,945 callable** | 1,945 | **100.0 %** |
-| **MobilityNebula** | 6 systest-confirmed | 243 wired · compile-verified | 12.5 % wired |
+| **MobilityNebula** | 6 systest-confirmed | 245 wired · compile-verified | 12.6 % wired |
 
 Flink and Kafka share one generated JNR-FFI facade, so their callability is identical;
 it is confirmed by a type-aware per-method harness that invokes **every** facade method
 on a real `libmeos` (a returned value or a caught MEOS semantic error counts as
 callable — only a linkage or marshalling failure does not). NebulaStream operators are
 generated C++ physical operators; each is **compile-verified** against the build's
-`libmeos` in the NebulaStream development image, and a growing systest suite confirms
+`libmeos` in the NebulaStream development image, and a systest suite confirms
 callability operator by operator.
 
 ## Query-result parity (BerlinMOD)
@@ -104,4 +104,4 @@ per-platform adapters and the callability harness in `tools/streaming_parity/`; 
 methodology is in `doc/methodology/streaming_parity_assessment.md` (MobilityNebula).
 
 *Measured against the `accumulate/parity-1.4` MEOS build, 2026-05-23. Flink and Kafka are
-complete at 100%; the NebulaStream figure is the operator surface wired and compile-verified to date.*
+complete at 100%; the NebulaStream figure is the operator surface wired and compile-verified.*
