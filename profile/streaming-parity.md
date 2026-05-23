@@ -14,6 +14,23 @@ deploy on real workloads?* — with reproducible evidence rather than assertion.
 > Companion: **[Databases — parity & benchmarks](database-parity.md)** reports the same
 > for the SQL engines (MobilityDB / MobilityDuck / MobilitySpark).
 
+## Results at a glance
+
+Coverage of the **1,945 streamable MEOS functions** — confirmed callable on a real `libmeos`:
+
+```text
+MobilityFlink   ████████████████████  1945 / 1945   100.0%   proven callable
+MobilityKafka   ████████████████████  1945 / 1945   100.0%   proven callable
+MobilityNebula  █▌                     147 / 1945     7.6%   wired · compile-verified
+```
+
+- **Correctness** — BerlinMOD reference queries, snapshot form **= batch result** ✓
+- **Benchmark** — cross-platform timings ▸ [report #29](https://github.com/MobilityDB/MobilityDB-BerlinMOD/pull/29) *(dated runs publishing)*
+
+**▶ Full results & raw data**
+- Per-function coverage — committed feeds `flink-kafka.feed.tsv` + `nebula.feed.tsv`, reproduced by `ci_gate.py` (MobilityNebula `tools/streaming_parity/`).
+- Methodology — `doc/methodology/streaming_parity_assessment.md` (MobilityNebula).
+
 ## The surface
 
 The reference is the **1,945 streamable MEOS public functions** — every exported MEOS

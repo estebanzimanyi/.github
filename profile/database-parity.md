@@ -14,6 +14,24 @@ on real workloads?* — with reproducible evidence rather than assertion.
 > Companion: **[Streaming — parity & benchmarks](streaming-parity.md)** reports the same
 > for the stream processors (MobilityFlink / MobilityKafka / MobilityNebula).
 
+## Results at a glance
+
+Coverage of the **MobilityDB SQL surface** — each engine over its active-addressable scope:
+
+```text
+MobilityDB      ████████████████████  reference     100 %    full regression suite
+MobilityDuck    ████████████████████   943 / 943    100.0%   active scope · extended families in progress
+MobilitySpark   ███████████████████▉  1571 / 1577    99.6%   + 29 / 29 portable dialect
+```
+
+- **Correctness** — BerlinMOD reference queries return **identical results** across all three engines ✓
+- **Benchmark** — cross-platform timings ▸ [report #29](https://github.com/MobilityDB/MobilityDB-BerlinMOD/pull/29) *(dated runs publishing)*
+
+**▶ Full results & raw data**
+- MobilityDuck — [`parity-status.md`](https://github.com/MobilityDB/MobilityDuck/blob/main/docs/parity-status.md) · [`PARITY.md`](https://github.com/MobilityDB/MobilityDuck/blob/main/docs/PARITY.md)
+- MobilitySpark — [`parity-100.md`](https://github.com/MobilityDB/MobilitySpark/blob/main/docs/parity-100.md)
+- MobilityDB cross-type — [methodology #1002](https://github.com/MobilityDB/MobilityDB/pull/1002) · [audit harness #1110](https://github.com/MobilityDB/MobilityDB/pull/1110)
+
 ## The surface
 
 The reference is the **public SQL API of MobilityDB** — every `CREATE FUNCTION` it
