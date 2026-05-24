@@ -1,5 +1,5 @@
-MobilityDB Streaming — Parity & Benchmarks
-==========================================
+MobilityDB Stream — Parity & Benchmarks
+=======================================
 
 The ecosystem exposes the same MEOS temporal and spatiotemporal operations on three
 stream processors — [MobilityFlink](https://github.com/MobilityDB/MobilityFlink),

@@ -26,7 +26,7 @@ The companion datasets and reproducible scripts live in [MobilityDataScienceBook
 
 Evidence that the ecosystem is complete, correct, and ready for real-world deployment — **measured, not asserted**. Two published assessments, one per platform group, each covering function-surface coverage, BerlinMOD query-result parity (identical results across engines), and BerlinMOD performance benchmarks:
 
-- **[Streaming — parity & benchmarks](streaming-parity.md)** — MobilityFlink / MobilityKafka / MobilityNebula.
+- **[Stream — parity & benchmarks](stream-parity.md)** — MobilityFlink / MobilityKafka / MobilityNebula.
 - **[Databases — parity & benchmarks](database-parity.md)** — MobilityDB / MobilityDuck / MobilitySpark.
 
 ## Repository map
