@@ -18,7 +18,7 @@ deploy on real workloads?* — with reproducible evidence rather than assertion.
 
 Coverage of the **1,945 streamable MEOS functions** — confirmed callable on a real `libmeos`:
 
-<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/streaming-coverage.png?v=15" width="760" alt="Streaming MEOS function coverage of 1,945 streamable functions: MobilityFlink 100.0% (1945/1945, proven callable), MobilityKafka 100.0% (1945/1945, proven callable), MobilityNebula 18.8% (365/1945, wired)" />
+<img src="https://raw.githubusercontent.com/MobilityDB/.github/main/profile/images/streaming-coverage.png?v=16" width="760" alt="Streaming MEOS function coverage of 1,945 streamable functions: MobilityFlink 100.0% (1945/1945, proven callable), MobilityKafka 100.0% (1945/1945, proven callable), MobilityNebula 19.7% (384/1945, wired)" />
 
 - **Correctness** — all **9 BerlinMOD queries × 3 streaming forms = 27/27 cells** reproduce the batch result on every platform; the Flink snapshot output is **byte-identical** to the batch oracle.
 
@@ -55,7 +55,7 @@ Three layers, increasing in strength:
 |---|--:|--:|--:|
 | **MobilityFlink**  | **1,945 callable** | 1,945 | **100.0 %** |
 | **MobilityKafka**  | **1,945 callable** | 1,945 | **100.0 %** |
-| **MobilityNebula** | 49 systest-confirmed | 365 wired · compile-verified | 18.8 % wired |
+| **MobilityNebula** | 57 systest-confirmed | 384 wired · compile-verified | 19.7 % wired |
 
 Flink and Kafka share one generated JNR-FFI facade, so their callability is identical;
 it is confirmed by a type-aware per-method harness that invokes **every** facade method
