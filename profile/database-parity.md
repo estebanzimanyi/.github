@@ -11,7 +11,7 @@ benchmark. Together these answer the question a prospective adopter asks first �
 database layer complete, does it return correct results, and is it fast enough to deploy
 on real workloads?* — with reproducible evidence rather than assertion.
 
-> Companion: **[Streaming — parity & benchmarks](streaming-parity.md)** reports the same
+> Companion: **[Stream — parity & benchmarks](stream-parity.md)** reports the same
 > for the stream processors (MobilityFlink / MobilityKafka / MobilityNebula).
 
 ## Results at a glance
@@ -68,8 +68,8 @@ tracks the measured state.
 
 MobilityDB's parity also has a *cross-type* axis: every temporal spatial type is held to
 the same function surface as its reference family — `tgeompoint` is the reference for the
-`Point` family (`tgeogpoint`, `tnpoint`), `tgeometry` for the extended-shape family
-(`trgeometry`, `tcbuffer`, `tpose`). The methodology and the audit harness are in
+`Point` family (`tgeogpoint`, `tnpoint`), `tgeometry` for the **Geometry** family
+(`trgeometry`, `tcbuffer`, `tpose`) — the Geometry-vs-Point axis mirrors range-vs-point queries in a 1-D world. The methodology and the audit harness are in
 MobilityDB ([cross-type parity methodology](https://github.com/MobilityDB/MobilityDB/pull/1002),
 [audit harness](https://github.com/MobilityDB/MobilityDB/pull/1110),
 [RFC #868](https://github.com/MobilityDB/MobilityDB/discussions/868)).
@@ -88,19 +88,15 @@ results** — the cross-engine portability contract
 ([discussion #861](https://github.com/MobilityDB/MobilityDB/discussions/861), conformance
 suite [MobilityDB-BerlinMOD](https://github.com/MobilityDB/MobilityDB-BerlinMOD)). This
 batch result is also the anchor for the streaming **snapshot** form, linking database
-parity to [streaming parity](streaming-parity.md).
+parity to [stream parity](stream-parity.md).
 
 ## Benchmarks (BerlinMOD)
 
-Coverage and correctness establish that the queries *run* and *agree*; the BerlinMOD
-benchmark establishes that they run *fast enough to deploy*. The cross-platform timing
-report is organised by **what each measurement licenses to claim**
-([MobilityDB-BerlinMOD #29](https://github.com/MobilityDB/MobilityDB-BerlinMOD/pull/29)):
-the `th3index` matrix is the cross-platform-comparable axis, native-index results are
-intra-platform only, and their composition is reported only where it beats both alone.
-Results are published here as each dated run is finalised; the benchmark harness lives in
-[MobilityDB-BerlinMOD](https://github.com/MobilityDB/MobilityDB-BerlinMOD) with the
-Spark driver in [MobilitySpark `berlinmod/bench`](https://github.com/MobilityDB/MobilitySpark/tree/main/berlinmod/bench).
+Coverage and correctness establish that the queries *run* and *agree*; the benchmark establishes they run *fast enough to deploy*. **All published figures use scale factor 0.005** — the generator is deterministic (`setseed(P_RANDOM_SEED = 0.5)`), so every run is reproducible and the engines are compared on byte-identical data. You can re-run at your **own scale factor** (set `scalefactor` in `berlinmod_runall.sh`) or against **your own** BerlinMOD-schema data.
+
+The cross-platform-comparable axis is the **`th3index` matrix** — a portable H3 cell-set prefilter the engines share, measured **warming-controlled** (per-query interleaved, so figures reflect index merit, not cache order). It is the honest measure of where spatial pre-filtering helps: it **accelerates the static-geometry *range* queries** (a region / point-set against all trips — Q13/Q14/Q15 strongest), where an H3 cell-set overlap is a *sound superset* of the predicate; and it is **≈ native on the *proximity* queries** (trip-to-trip `dwithin`, Q5/Q6), where no sound H3 superset exists for a metric distance, so the prefilter is correctly dropped rather than risk a wrong answer.
+
+*MobilityDB (1.4, SF 0.005): per-query figures publishing from the warming-controlled run. MobilityDuck / MobilitySpark rows publish as their accumulated-PR builds sync the new surface. Full matrix: [MobilityDB-BerlinMOD #29](https://github.com/MobilityDB/MobilityDB-BerlinMOD/pull/29).*
 
 ## Reproduce it
 
@@ -117,6 +113,6 @@ python3 scripts/portable_parity.py     # 29/29 portable bare names
 tools/parity_audit/                    # nm -D / pg_proc / test — 3-condition gate
 ```
 
-*Status as of 2026-05-23. MobilityDB is the reference; MobilityDuck and MobilitySpark
+*Status as of 2026-05-24. MobilityDB is the reference; MobilityDuck and MobilitySpark
 coverage and the benchmark tables advance as the accumulated-PR builds and dated runs
 land.*
