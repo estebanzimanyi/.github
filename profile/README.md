@@ -67,7 +67,8 @@ The same edge-to-cloud model runs on the streaming side, each tool in its canoni
 
 ### 🟩 HTTP / API layer
 
-- **[MobilityAPI](https://github.com/MobilityDB/MobilityAPI)** · [OGC API – Moving Features](https://www.ogc.org/standards/ogc-api-moving-features/) — server over moving-feature collections. The reference implementation is a thin, compiled **Go** tier that runs all temporal work and (de)serialization inside MobilityDB itself (no in-process MEOS); a PyMEOS-based Python implementation is also available.
+- **[MobilityAPI](https://github.com/MobilityDB/MobilityAPI)** · [OGC API – Moving Features](https://www.ogc.org/standards/ogc-api-moving-features/) — the reference implementation: a thin, compiled **Go** tier that runs all temporal work and (de)serialization inside MobilityDB itself (no in-process MEOS).
+- **[MobilityAPI-Python](https://github.com/MobilityDB/MobilityAPI-Python)** · [OGC API – Moving Features](https://www.ogc.org/standards/ogc-api-moving-features/) — the Python alternative over the same OGC API surface, built on MobilityDB via PyMEOS.
 
 Three further HTTP surfaces are projected from the **[MEOS-API](https://github.com/MobilityDB/MEOS-API)** catalog over the MEOS algebra:
 - **OpenAPI** — an OpenAPI 3.1 contract.
@@ -78,7 +79,7 @@ Three further HTTP surfaces are projected from the **[MEOS-API](https://github.c
 
 Each binding follows its language community's naming convention.
 
-- **[PyMEOS](https://github.com/MobilityDB/PyMEOS)** — Python; the reference binding, the basis for MobilityPandas and the Python implementation of MobilityAPI.
+- **[PyMEOS](https://github.com/MobilityDB/PyMEOS)** — Python; the reference binding, the basis for MobilityPandas and MobilityAPI-Python.
 - **[JMEOS](https://github.com/MobilityDB/JMEOS)** — Java / JVM; also backs the MobilityFlink and MobilityKafka stream layers via `MEOSBridge`.
 - **[GoMEOS](https://github.com/MobilityDB/GoMEOS)** — Go; idiomatic wrappers over the MEOS C ABI.
 - **[meos-rs](https://github.com/MobilityDB/meos-rs)** — Rust; safe bindings to MEOS.
